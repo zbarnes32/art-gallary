@@ -1,5 +1,23 @@
 <script setup>
+import { onMounted } from 'vue';
+import { artworkService } from '../services/ArtworkService.js';
+import Pop from '../utils/Pop.js';
 
+
+
+onMounted(() =>{
+  getArtwork()
+})
+  
+
+async function getArtwork(){
+  try {
+    await artworkService.getArtwork();
+  }
+  catch (error){
+    Pop.error(error);
+  }
+}
 </script>
 
 <template>
