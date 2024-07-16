@@ -1,9 +1,10 @@
 <script setup>
-import { onMounted } from 'vue';
+import { computed, onMounted } from 'vue';
 import { artworkService } from '../services/ArtworkService.js';
 import Pop from '../utils/Pop.js';
+import { AppState } from '../AppState.js';
 
-
+const artworks = computed(() => AppState.artworks)
 
 onMounted(() =>{
   getArtwork()
@@ -21,15 +22,26 @@ async function getArtwork(){
 </script>
 
 <template>
-  <div class="home flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <div class="home-card p-5 card align-items-center shadow rounded elevation-3">
-      <img src="https://bcw.blob.core.windows.net/public/img/8600856373152463" alt="CodeWorks Logo"
-        class="rounded-circle">
-      <h1 class="my-5 bg-dark text-white p-3 rounded text-center">
-        Vue 3 Starter
-      </h1>
+  <section class="container-fluid sticky-top">
+    <div class="row">
+      <div class="col-12 d-flex justify-content-between py-3">
+        <button class="btn btn-warning">Previous</button>
+        <button class="btn btn-warning">Next</button>
+      </div>
     </div>
-  </div>
+  </section>
+
+
+  <section class="container-fluid">
+    <div class="row align-items-center">
+      <div v-for="artwork in artworks" :key="artwork.id" class="col-6 col-md-3">
+        <div class="card">
+          <img class="card-img img-fluid" :src="artwork.imgUrl">
+        </div>
+      </div>
+    </div>
+  </section>
+
 </template>
 
 <style scoped lang="scss">
